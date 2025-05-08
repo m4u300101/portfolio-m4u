@@ -4,10 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mau alcarazz</title>
+    <title>Mauricio Alcaraz - Software Engineer</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/ekmas/cs16.css@main/css/cs16.min.css">
     <style>
+        .container {
+            width: 100%;
+            /* Make it responsive by default */
+            max-width: 1320px;
+            /* Or 960px, 1280px, or your preferred max width. This limits how wide the content can get. */
+            margin-left: auto;
+            /* These two lines center the container */
+            margin-right: auto;
+            padding-left: 15px;
+            /* Adds some space on the left inside the container */
+            padding-right: 15px;
+            /* Adds some space on the right inside the container */
+            box-sizing: border-box;
+            /* Ensures padding doesn't add to the overall width/max-width */
+        }
+
         /* Custom styles that extend cs16.css */
+        :root {
+            --primary-color: #4a6fa5;
+            --sidebar-width: 200px;
+            --sidebar-bg: #3e5c3e;
+            --sidebar-text: white;
+        }
+
+        /* Preserve cs16.css font styling instead of overriding it */
+        body {
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout with fixed sidebar */
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            height: 100vh;
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 200;
+        }
+
+        .sidebar-logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            overflow-x: hidden;
+        }
+
+        /* Remove original header */
+        .original-header {
+            display: none;
+        }
+
         .dialog-backdrop {
             position: fixed;
             top: 0;
@@ -29,185 +119,532 @@
             pointer-events: all;
         }
 
-        /* Additional custom styles */
-        header {
-            background-color: var(--c-dark);
-            color: white;
-            padding: 1rem 0;
+        .c-card {
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .c-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* Add any other custom styles you need here */
+        .hero {
+            background: #4b5b43;
+            /* Darker, desaturated green */
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .project-card {
+            height: 100%;
+        }
+
+        .project-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .skills {
+            background-color: #f8f9fa;
+        }
+
+        .skill-group {
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding: 1rem 0;
+            }
+
+            .sidebar-logo {
+                padding: 0 0.5rem;
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .sidebar-nav a {
+                padding: 0.75rem 0.5rem;
+                text-align: center;
+            }
+
+            .sidebar-nav a span {
+                display: none;
+            }
+
+            .sidebar-nav a i {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                margin-left: 60px;
+                width: calc(100% - 60px);
+            }
+        }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <nav class="flex justify-between items-center">
-                <div class="logo fs-3 fw-bold">mau alcaraz</div>
-                <ul class="flex gap-2 list-none">
-                    <li><a href="#about" class="cs-btn">About</a></li>
-                    <li><a href="#projects" class="cs-btn">Projects</a></li>
-                    <li><a href="#skills" class="cs-btn">Skills</a></li>
-                    <li><a href="#contact" class="cs-btn">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="page-container">
+        <!-- Fixed Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">Mau Alcaraz</div>
+            <ul class="sidebar-nav">
+                <li><a href="#about"><i class="c-icon">👤</i> <span>About</span></a></li>
+                <li><a href="#projects"><i class="c-icon">📂</i> <span>Projects</span></a></li>
+                <li><a href="#skills"><i class="c-icon">🔧</i> <span>Skills</span></a></li>
+                <li><a href="#contact"><i class="c-icon">✉️</i> <span>Contact</span></a></li>
+            </ul>
+        </aside>
 
-    <section class="hero text-center py-6">
-        <div class="container">
-            <h1 class="fs-1 fw-bold">mauricio alcaraz</h1>
-            <p class="mb-4">Software Engineer specializing in frontend development / ERP's</p>
-            <div class="flex justify-center gap-2 mt-4">
-                <a href="#projects" class="cs-btn">My Work</a>
-                <section>
-                    <button type="button" class="cs-btn" onclick="document.querySelector('.cs-dialog').showModal();">
-                        Contact me
-                    </button>
-                    <dialog class="cs-dialog">
-                        <form method="dialog">
-                            <div class="heading">
-                                <div class="wrapper">
-                                    <div class="icon"></div>
-                                    <p class="text">Options</p>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Original header (hidden with CSS) -->
+            <header class="original-header">
+                <div class="container">
+                    <nav class="flex justify-between items-center">
+                        <div class="logo fs-3 fw-bold">Mau Alcaraz</div>
+
+                        <div class="mobile-menu-btn">
+                            <button id="menu-toggle" class="cs-btn">Menu</button>
+                        </div>
+
+                        <ul class="desktop-menu flex gap-2 list-none">
+                            <li><a href="#about" class="cs-btn">About</a></li>
+                            <li><a href="#projects" class="cs-btn">Projects</a></li>
+                            <li><a href="#skills" class="cs-btn">Skills</a></li>
+                            <li><a href="#contact" class="cs-btn">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div id="mobile-menu" class="mobile-menu">
+                    <ul class="list-none">
+                        <li><a href="#about" class="cs-btn">About</a></li>
+                        <li><a href="#projects" class="cs-btn">Projects</a></li>
+                        <li><a href="#skills" class="cs-btn">Skills</a></li>
+                        <li><a href="#contact" class="cs-btn">Contact</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <section class="hero text-center">
+                <div class="container">
+                    <h1 class="fs-1 fw-bold">Mauricio Alcaraz</h1>
+                    <p class="mb-4 fs-4">Software Engineer specializing in Frontend Development & ERP Systems</p>
+                    <div class="flex justify-center gap-2 mt-4">
+                        <a href="#projects" class="cs-btn cs-btn-primary">View My Work</a>
+                        <button id="open-dialog" class="cs-btn">Contact Me</button>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="cs-hr" />
+            <br />
+
+            <section id="about" class="py-6">
+                <div class="container">
+                    <h2 class="section-title">About Me</h2>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="w-full md-w-1/2">
+                            <p class="mb-3">Hello! I'm a software engineer passionate about creating elegant, efficient,
+                                and user-friendly applications. With expertise in frontend development and ERP systems,
+                                I bring technical knowledge and creative problem-solving to every project.</p>
+                            <p class="mb-3">I specialize in building responsive web applications that deliver
+                                exceptional user experiences while maintaining clean, maintainable code. My experience
+                                with ERP systems allows me to bridge the gap between business processes and technical
+                                implementation.</p>
+                            <p>When I'm not coding, you can find me gaming, streaming on Twitch, or exploring the latest
+                                tech trends. I'm always looking to learn new technologies and improve my skills.</p>
+                        </div>
+                        <br />
+                        <div class="w-full md-w-1/2">
+                            <div class="c-card p-4">
+                                <h3 class="fs-4 mb-3">Professional Summary</h3>
+                                <ul class="list-none">
+                                    <li class="mb-2">5+ years of software development experience</li>
+                                    <li class="mb-2">Frontend specialist with full-stack capabilities</li>
+                                    <li class="mb-2">ERP implementation and customization expert</li>
+                                    <li class="mb-2">Responsive web application development</li>
+                                    <li>Strong collaboration and communication skills</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <br />
+            <hr class="cs-hr" />
+            <br />
+
+            <section id="projects" class="py-6 bg-light">
+                <div class="container">
+                    <h2 class="section-title">Projects</h2>
+
+                    <div class="cs-tabs">
+                        <input class="radiotab" name="tabs" tabindex="1" type="radio" id="tab-web" checked="checked" />
+                        <label class="label" for="tab-web">Web Applications</label>
+                        <div class="panel" tabindex="1">
+                            <div class="flex flex-wrap gap-4">
+                                <div class="w-full md-w-1/3">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="E-commerce Platform"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">E-commerce Platform</h3>
+                                            <p class="mb-3">A fully responsive e-commerce platform built with React and
+                                                Node.js. Features include user authentication, product filtering,
+                                                shopping cart, and payment integration.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">React</span>
+                                                <span class="c-badge">Node.js</span>
+                                                <span class="c-badge">MongoDB</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">View Project</a>
+                                                <a href="#" class="cs-btn cs-btn-sm">GitHub</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="cs-btn close"></button>
+
+                                <div class="w-full md-w-1/3">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Task Management App"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Task Management App</h3>
+                                            <p class="mb-3">A collaborative task management application with real-time
+                                                updates, user roles, and progress tracking. Built with Vue.js and
+                                                Firebase.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">Vue.js</span>
+                                                <span class="c-badge">Firebase</span>
+                                                <span class="c-badge">CSS Grid</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">View Project</a>
+                                                <a href="#" class="cs-btn cs-btn-sm">GitHub</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full md-w-1/3">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Portfolio Website"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Portfolio Website</h3>
+                                            <p class="mb-3">A responsive portfolio website showcasing my projects and
+                                                skills. Built with HTML, CSS, and JavaScript using modern web
+                                                techniques.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">HTML</span>
+                                                <span class="c-badge">CSS</span>
+                                                <span class="c-badge">JavaScript</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">View Project</a>
+                                                <a href="#" class="cs-btn cs-btn-sm">GitHub</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="content">
+                        </div>
 
-                                Feel free to reach out to me directly:
+                        <input class="radiotab" tabindex="1" name="tabs" type="radio" id="tab-erp" />
+                        <label class="label" for="tab-erp">ERP Systems</label>
+                        <div class="panel" tabindex="1">
+                            <div class="flex flex-wrap gap-4">
+                                <div class="w-full md-w-1/2">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Inventory Management System"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Inventory Management System</h3>
+                                            <p class="mb-3">A comprehensive inventory management module for mid-sized
+                                                manufacturing companies. Includes real-time tracking, reporting, and
+                                                integration with other ERP modules.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">SAP</span>
+                                                <span class="c-badge">ABAP</span>
+                                                <span class="c-badge">SQL</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">Case Study</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                Email: your.email@example.com
-
-                                LinkedIn: linkedin.com/in/yourname
-
-                                GitHub: github.com/m4u300101
-
+                                <div class="w-full md-w-1/2">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Financial Reporting System"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Financial Reporting System</h3>
+                                            <p class="mb-3">A custom financial reporting solution that integrates with
+                                                existing ERP systems to provide actionable insights and automated
+                                                reporting.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">Oracle</span>
+                                                <span class="c-badge">PL/SQL</span>
+                                                <span class="c-badge">Business Intelligence</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">Case Study</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <menu class="footer-btns">
-                                <button class="cs-btn">OK</button>
-                                <button class="cs-btn">Cancel</button>
-                                <button class="cs-btn">Apply</button>
-                            </menu>
+                        </div>
+
+                        <input class="radiotab" tabindex="1" name="tabs" type="radio" id="tab-others" />
+                        <label class="label" for="tab-others">Other Projects</label>
+                        <div class="panel" tabindex="1">
+                            <div class="flex flex-wrap gap-4">
+                                <div class="w-full md-w-1/2">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Gaming Stream Overlay"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Gaming Stream Overlay</h3>
+                                            <p class="mb-3">A custom-designed overlay for gaming streams with real-time
+                                                notifications, animated elements, and viewer interaction features.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">OBS Studio</span>
+                                                <span class="c-badge">CSS Animation</span>
+                                                <span class="c-badge">Twitch API</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">View Demo</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full md-w-1/2">
+                                    <div class="c-card project-card">
+                                        <img src="/api/placeholder/400/200" alt="Personal Blog"
+                                            class="project-img w-full">
+                                        <div class="p-4">
+                                            <h3 class="fs-4 mb-2">Tech Blog</h3>
+                                            <p class="mb-3">A personal tech blog where I share insights, tutorials, and
+                                                thoughts on software development and technology trends.</p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span class="c-badge">Gatsby</span>
+                                                <span class="c-badge">Markdown</span>
+                                                <span class="c-badge">Netlify CMS</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="#" class="cs-btn cs-btn-sm">Visit Blog</a>
+                                                <a href="#" class="cs-btn cs-btn-sm">GitHub</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <br />
+
+            <section id="skills" class="py-6">
+                <div class="container">
+                    <h2 class="section-title">Skills</h2>
+
+                    <div class="flex flex-wrap gap-4">
+                        <div class="w-full md-w-1/3">
+                            <div class="c-card p-4 h-full">
+                                <h3 class="fs-4 mb-3">Frontend Development</h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="c-badge">HTML5</span>
+                                    <span class="c-badge">CSS3</span>
+                                    <span class="c-badge">JavaScript</span>
+                                    <span class="c-badge">TypeScript</span>
+                                    <span class="c-badge">React</span>
+                                    <span class="c-badge">Vue.js</span>
+                                    <span class="c-badge">Angular</span>
+                                    <span class="c-badge">Responsive Design</span>
+                                    <span class="c-badge">Tailwind CSS</span>
+                                    <span class="c-badge">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md-w-1/3">
+                            <div class="c-card p-4 h-full">
+                                <h3 class="fs-4 mb-3">Backend & Database</h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="c-badge">Node.js</span>
+                                    <span class="c-badge">Express</span>
+                                    <span class="c-badge">RESTful APIs</span>
+                                    <span class="c-badge">MySQL</span>
+                                    <span class="c-badge">MongoDB</span>
+                                    <span class="c-badge">PostgreSQL</span>
+                                    <span class="c-badge">Firebase</span>
+                                    <span class="c-badge">GraphQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md-w-1/3">
+                            <div class="c-card p-4 h-full">
+                                <h3 class="fs-4 mb-3">DevOps & Tools</h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="c-badge">Git</span>
+                                    <span class="c-badge">GitHub</span>
+                                    <span class="c-badge">Docker</span>
+                                    <span class="c-badge">CI/CD</span>
+                                    <span class="c-badge">AWS</span>
+                                    <span class="c-badge">Netlify</span>
+                                    <span class="c-badge">Vercel</span>
+                                    <span class="c-badge">Webpack</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md-w-1/2">
+                            <div class="c-card p-4 h-full">
+                                <h3 class="fs-4 mb-3">ERP Systems</h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="c-badge">SAP</span>
+                                    <span class="c-badge">Oracle</span>
+                                    <span class="c-badge">Microsoft Dynamics</span>
+                                    <span class="c-badge">Odoo</span>
+                                    <span class="c-badge">ERP Implementation</span>
+                                    <span class="c-badge">ABAP</span>
+                                    <span class="c-badge">Business Process Modeling</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md-w-1/2">
+                            <div class="c-card p-4 h-full">
+                                <h3 class="fs-4 mb-3">Other Skills</h3>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="c-badge">Agile Methodology</span>
+                                    <span class="c-badge">Scrum</span>
+                                    <span class="c-badge">Project Management</span>
+                                    <span class="c-badge">UI/UX Design</span>
+                                    <span class="c-badge">Testing</span>
+                                    <span class="c-badge">Technical Documentation</span>
+                                    <span class="c-badge">Problem Solving</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <br />
+            <hr class="cs-hr" />
+            <br />
+
+            <section id="contact" class="py-6 bg-light">
+                <div class="container">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <div class="max-w-600 mx-auto">
+                        <form id="contact-form">
+                            <div class="mb-4">
+                                <label for="name" class="fw-bold mb-2 block">Name</label>
+                                <input class="cs-input" id="name" type="text" required />
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="fw-bold mb-2 block">Email</label>
+                                <input class="cs-input" id="email" type="email" required />
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="fw-bold mb-2 block">Subject</label>
+                                <input class="cs-input" id="subject" type="text" required />
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="fw-bold mb-2 block">Message</label>
+                                <textarea id="message" name="message" class="cs-input w-full" style="min-height: 150px;"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="cs-btn cs-btn-primary">Send Message</button>
                         </form>
-                    </dialog>
-                </section>
+                    </div>
+                </div>
+            </section>
 
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Hello! I'm a software engineer passionate about creating elegant, efficient, and user-friendly
-                applications. I enjoy solving complex problems and building responsive web applications.</p>
-            <p>When I'm not coding, you can find me gaming and/or streaming!</p>
-        </div>
-    </section>
-
-    <!-- proyectos -->
-<section id="projects">
-    <div class="cs-tabs">
-        <input class="radiotab" name="tabs" tabindex="1" type="radio" id="tabone" checked="checked" />
-        <label class="label" for="tabone">Tab One</label>
-        <div class="panel" tabindex="1">
-            <h2>Tab One Content</h2>
-            <p>Tab content...</p>
-        </div>
-        <input class="radiotab" tabindex="1" name="tabs" type="radio" id="tabtwo" />
-        <label class="label" for="tabtwo">Tab Two</label>
-        <div class="panel" tabindex="1">
-            <h2>Tab Two Content</h2>
-            <p>Tab content...</p>
-        </div>
-        <input class="radiotab" tabindex="1" name="tabs" type="radio" id="tabthree" />
-        <label class="label" for="tabthree">Tab Three</label>
-        <div class="panel" tabindex="1">
-            <h2>Tab Three Content</h2>
-            <p>Tab content...</p>
-        </div>
+        </main>
     </div>
-</section>
 
-    <!-- skills -->
-
-    <section id="skills" class="py-6">
-        <div class="container text-center">
-            <h2 class="fs-2 mb-4">Skills</h2>
-            <div class="flex flex-wrap justify-center gap-2">
-                <span class="c-badge">JavaScript</span>
-                <span class="c-badge">React</span>
-                <span class="c-badge">Node.js</span>
-                <span class="c-badge">HTML/CSS</span>
-                <span class="c-badge">Git</span>
-                <span class="c-badge">TypeScript</span>
-                <span class="c-badge">CSS Frameworks</span>
-                <span class="c-badge">RESTful APIs</span>
-                <!-- Add more skills as needed -->
-            </div>
-        </div>
-    </section>
-
-    <!-- contact -->
-
-    <section id="contact" class="py-6">
+    <footer class="bg-dark text-white py-4" style="margin-left: var(--sidebar-width);">
         <div class="container">
-            <h2 class="fs-2 mb-4">Get In Touch</h2>
-            <div class="max-w-600 mx-auto">
-                <div class="mb-4">
-                    <input class="cs-input" id="input" type="input" />
-                    <label class="cs-input__label" for="input">First name</label>
-
-                    <br />
-                    <br />
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="w-full md-w-1/2 text-center md-text-left mb-4 md-mb-0">
+                    <p>&copy; 2025 Mauricio Alcaraz. All rights reserved.</p>
+                    <p class="text-muted">Software Engineer specializing in Frontend Development & ERP Systems</p>
                 </div>
-                <div class="mb-4">
-                    <input class="cs-input" id="input" type="input" />
-                    <label class="cs-input__label" for="input">Email</label>
-
-                    <br />
-                    <br />
+                <div class="w-full md-w-1/2 text-center md-text-right">
+                    <div class="flex justify-center md-justify-end gap-2">
+                        <a href="https://github.com/m4u300101" class="cs-btn cs-btn-sm" target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/mauricio-alcaraz" class="cs-btn cs-btn-sm"
+                            target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com/maualcaraz" class="cs-btn cs-btn-sm" target="_blank">Twitter</a>
+                        <a href="https://twitch.tv/maualcaraz" class="cs-btn cs-btn-sm" target="_blank">Twitch</a>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="message" class="fw-bold mb-2 block">Message</label>
-                    <textarea id="message" name="message" class="c-input w-full" style="min-height: 150px;"></textarea>
-                </div>
-                <button type="submit" class="c-btn">Send Message</button>
             </div>
-        </div>
-    </section>
-
-    <footer class="bg-dark text-white py-4 text-center">
-        <div class="container">
-            <p>&copy; 2025 mau alcarazz. All rights reserved. cs16.css Made by <a target="_blank" href="http://samke.me">Samuel</a></p>
-            <div class="flex justify-center gap-2 mt-4">
-                <a href="#" class="c-btn c-btn-sm">GitHub</a>
-                <a href="#" class="c-btn c-btn-sm">LinkedIn</a>
-                <a href="#" class="c-btn c-btn-sm">Twitter</a>
+            <div class="text-center mt-4">
+                <p class="text-muted">Built with cs16.css by <a href="http://samke.me" target="_blank"
+                        class="text-white">Samuel</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- Custom Dialog Component -->
+    <!-- Contact Dialog -->
     <div id="contact-dialog" class="dialog-backdrop">
         <div class="c-modal">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="fs-4">Contact Me</h3>
+                <h3 class="fs-4">Contact Information</h3>
                 <button class="c-btn-close" id="close-dialog">&times;</button>
             </div>
             <div>
-                <p>Feel free to reach out to me directly:</p>
-                <p>Email: your.email@example.com</p>
-                <p>LinkedIn: linkedin.com/in/yourname</p>
-                <p>GitHub: github.com/yourusername</p>
+                <p>Feel free to reach out to me through any of these channels:</p>
+
+                <div class="mt-3">
+                    <p><strong>Email:</strong> <a href="mailto:mauricio@alcaraz.dev">mauricio@alcaraz.dev</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/mauricio-alcaraz"
+                            target="_blank">linkedin.com/in/mauricio-alcaraz</a></p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/m4u300101"
+                            target="_blank">github.com/m4u300101</a></p>
+                </div>
+
+                <div class="mt-4">
+                    <p>For quick inquiries, you can also fill out the contact form at the bottom of this page.</p>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button class="cs-btn" id="close-dialog-btn">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -216,6 +653,7 @@
         // Dialog functionality
         const openDialogBtn = document.getElementById('open-dialog');
         const closeDialogBtn = document.getElementById('close-dialog');
+        const closeDialogBtnAlt = document.getElementById('close-dialog-btn');
         const dialog = document.getElementById('contact-dialog');
 
         openDialogBtn.addEventListener('click', () => {
@@ -226,6 +664,10 @@
             dialog.classList.remove('active');
         });
 
+        closeDialogBtnAlt.addEventListener('click', () => {
+            dialog.classList.remove('active');
+        });
+
         // Close dialog when clicking outside
         dialog.addEventListener('click', (e) => {
             if (e.target === dialog) {
@@ -233,19 +675,81 @@
             }
         });
 
-        // Smooth scrolling for navigation
+        // Mobile menu toggle for original menu (now hidden)
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        // Highlight active sidebar link based on scroll position
+        function setActiveNavItem() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navItem = document.querySelector(`.sidebar-nav a[href="#${sectionId}"]`);
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom && navItem) {
+                    document.querySelectorAll('.sidebar-nav a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    navItem.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveNavItem);
+
+        // Set initial active state
+        window.addEventListener('load', setActiveNavItem);
+
+        // Smooth scrolling for navigation with sidebar offset adjustment
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     window.scrollTo({
-                        top: target.offsetTop - 80,
+                        top: target.offsetTop,
                         behavior: 'smooth'
                     });
+
+                    // Close mobile menu if open
+                    if (mobileMenu && mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                    }
                 }
             });
         });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contact-form');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+
+                // Here you would typically send this data to a server
+                // For now, we'll just show an alert
+                alert(`Thank you, ${name}! Your message has been received. I'll get back to you soon.`);
+
+                // Reset form
+                contactForm.reset();
+            });
+        }
     </script>
 </body>
 
