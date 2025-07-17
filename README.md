@@ -6,3 +6,4 @@ _todo:_
 -   [ ] switcher de lenguajes en/es
 -   [ ] quotes dinámicas
 -   [ ] wtfpl ( _¿se pueden cambiar licencias en github?_ )
+-   [ ] aprender a usar nvim rapido
